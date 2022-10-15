@@ -17,3 +17,4 @@ React.js
 - s303395 - Luca Durando
 - s303504 - Francesco Bruno
 - s305007 - Ege Ünlüsoy
+- s306112 - Lorenzo Greco
