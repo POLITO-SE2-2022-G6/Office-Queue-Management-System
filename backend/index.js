@@ -64,6 +64,17 @@ app.get('/api/ticket/:tID', async (res) => {
 })
 
 
+//GET /api/ticket
+app.get("/api/ticket", async (res) => {
+  try {
+    const tickets = await sDao.getAllTickets();
+    res.status(200).json(tickets);
+  } catch (err) {
+    res.status(500).end();
+  }
+});
+
+
 //PATCH /api/ticket/:tID    ticket served 0-->1
 app.patch('/api/ticket/:tID', async (req, res) => {
   try {
