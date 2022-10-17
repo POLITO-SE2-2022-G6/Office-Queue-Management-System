@@ -34,6 +34,51 @@ app.patch('/api/service/:sID', async (req, res) => {
   }
 })
 
+//POST /api/ticket
+app.post('/api/ticket', async (req, res) => {
+  try {
+    if (!req.body) 
+      return res.status(500).json({error: "illegal Body"});
+
+    const serv_id = req.body;
+    //const eta=fucntion that computes eta and returns the result
+    let id = sDao.addTicket(serv_id,eta); //served is 0 by default 
+    
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+//GET /api/ticket/:tID
+app.get('/api/ticket/:tID', async (res) => {
+  try {
+    // Get Ticket from ID
+    const ticket = await sDao.getTicket(req.params.tID);
+    if (ticket.error) return res.status(500).json(ticket);
+    else res.status(200).json(ticket);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+
+//PATCH /api/ticket/:tID    ticket served 0-->1
+app.patch('/api/ticket/:tID', async (req, res) => {
+  try {
+    
+
+    // Set served from 0 to 1
+    const resultSetServed = await sDao.setServed(req.params.tID);
+    if (resultSetServed.error) return res.status(500).json(resultSetServed);
+	else res.status(200).json(resultSetServed);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });

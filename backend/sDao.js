@@ -28,3 +28,45 @@ exports.getType = (id) => {
         });
     })
 }
+
+exports.addTicket =(service,eta) => {
+    return new Promise((resolve, reject) => { //check if id is autoincremented
+      const sql = 'INSERT INTO ticket (service, eta) VALUES (?,?)';
+      db.run(sql, [service, eta], (err) => {
+          if (err) {
+              reject(err);
+              console.log(err);
+              return;
+          }
+          resolve('done');
+      });
+  })
+  
+  }
+  
+  exports.getTicket = (id) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM ticket WHERE id = ?';
+      db.get(sql, [id], (err, ticket) => {
+          if (err) {
+              reject(err);
+              console.log(err);
+              return;
+          }
+          resolve(ticket);
+      });
+  })
+  }
+  exports.setServed = (id) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'UPDATE ticket SET served = 1 WHERE id = ?';
+      db.run(sql, [id], (err) => {
+          if (err) {
+              reject(err);
+              console.log(err);
+              return;
+          }
+          resolve('done');
+      });
+  })
+  }
