@@ -1,0 +1,21 @@
+/api
+  /service
+    POST  /       - create a service
+    GET   /:id    - get a service
+    PATCH /:id    - set service time
+
+  /counter
+    POST  /       - create a counter
+    GET   /:id    - get a counter
+    PATCH /:id    - set counter service
+     {
+      serviceId[]
+     }
+
+  /ticket
+    POST  /       - create a ticket
+      {
+        serviceId: number
+      }
+    GET   /:id    - get a ticket
+    PATCH /:id    - set ticket as served
