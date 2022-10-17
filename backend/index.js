@@ -3,8 +3,21 @@
 const app = require('express')();
 const sDao = require('./sDao'); // module for accessing the DB
 
-//PATCH /api/services/:sType
-app.patch('/api/services/:sType', async (req, res) => {
+//GET /api/service/:sID
+app.get('/api/service/:sID', async (res) => {
+  try {
+    // Get Type from ID
+    const resultSetT = await sDao.getType(req.params.sID);
+    if (resultSetT.error) return res.status(500).json(resultSetT);
+	else res.status(200).json(resultSetT);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+//PATCH /api/service/:sID
+app.patch('/api/service/:sID', async (req, res) => {
   try {
     // Check integrità body    
     if (!req.body) return res.status(500).json({error: "Illegal Body"});

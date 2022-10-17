@@ -14,3 +14,17 @@ exports.setTime = (type, time) => {
         });
     })
 }
+
+exports.getType = (id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT type FROM service WHERE id = ?';
+        db.get(sql, [id], (err, type) => {
+            if (err) {
+                reject(err);
+                console.log(err);
+                return;
+            }
+            resolve(type);
+        });
+    })
+}
