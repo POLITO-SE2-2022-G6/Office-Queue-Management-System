@@ -1,6 +1,21 @@
 'use strict';
 const db = require('./db.js');
 
+exports.addService =(type, service) => {
+    return new Promise((resolve, reject) => { //check if id is autoincremented
+        const sql = 'INSERT INTO service (type, time) VALUES ()';
+        db.run(sql, [time, type], (err) => {
+            if (err) {
+                reject(err);
+                console.log(err);
+                return;
+            }
+            resolve(this.lastID);
+        });
+    })
+
+}
+
 exports.setTime = (type, time) => {
     return new Promise((resolve, reject) => {
         const sql = 'UPDATE service SET time = ? WHERE type = ?';
