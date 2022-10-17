@@ -10,7 +10,7 @@ app.post('/api/service', async (req, res) => {
       return res.status(500).json({error: "illegal Body"});
 
     const serv = req.body;
-    let id = sDao.addService(serv.type, serv.service); 
+    let id = sDao.addService(serv.type, serv.time); 
     //add some control here
     
   } catch (err) {

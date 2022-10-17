@@ -1,7 +1,7 @@
 'use strict';
 const db = require('./db.js');
 
-exports.addService =(type, service) => {
+exports.addService =(type, time) => {
     return new Promise((resolve, reject) => { //check if id is autoincremented
         const sql = 'INSERT INTO service (type, time) VALUES ()';
         db.run(sql, [time, type], (err) => {
@@ -10,7 +10,7 @@ exports.addService =(type, service) => {
                 console.log(err);
                 return;
             }
-            resolve(this.lastID);
+            resolve('done');
         });
     })
 
