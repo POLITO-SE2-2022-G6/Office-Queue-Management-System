@@ -19,6 +19,20 @@ app.post('/api/service', async (req, res) => {
   }
 })
 
+//GET /api/service
+app.get('/api/service', async (res) => {
+  try {
+    // Get Type from ID
+    const resultSetT = await sDao.getServices();
+    if (resultSetT.error) return res.status(500).json(resultSetT);
+	else res.status(200).json(resultSetT);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+
 //GET /api/service/:sID
 app.get('/api/service/:sID', async (res) => {
   try {
