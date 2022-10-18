@@ -43,3 +43,19 @@ exports.getType = (id) => {
         });
     })
 }
+
+exports.getServices = () => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM service';
+        db.all(sql, [], (err, type) => {
+            if (err) {
+                reject(err);
+                console.log(err);
+                return;
+            }
+            resolve(type);
+        });
+        const services = rows.map((s) => ({ id: s.id, type: s.type, time: s.time}));
+        resolve(services);
+    })
+}
