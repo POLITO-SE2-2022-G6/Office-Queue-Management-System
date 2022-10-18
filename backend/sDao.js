@@ -3,14 +3,14 @@ const db = require('./db.js');
 
 exports.addService =(type, time) => {
     return new Promise((resolve, reject) => { //check if id is autoincremented
-        const sql = 'INSERT INTO service (type, time) VALUES ()';
-        db.run(sql, [time, type], (err) => {
+        const sql = 'INSERT INTO service (type, time) VALUES (?,?) RETURNING id';
+        db.get(sql, [type, time], (err, id) => {
             if (err) {
                 reject(err);
                 console.log(err);
                 return;
             }
-            resolve('done');
+            resolve(id);
         });
     })
 
@@ -41,5 +41,21 @@ exports.getType = (id) => {
             }
             resolve(type);
         });
+    })
+}
+
+exports.getServices = () => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM service';
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                reject(err);
+                console.log(err);
+                return;
+            }
+            const services = rows.map((s) => ({ id: s.id, type: s.type, time: s.time}));
+            resolve(services);
+        });
+        
     })
 }
