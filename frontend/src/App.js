@@ -9,6 +9,7 @@ import {
 
 import Landing from './routes/landing/Landing'
 import Manager from './routes/manager/Manager';
+import Customer from './routes/customer/Customer';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Landing/>} />
           <Route path='/manager' element={<Manager/>} />
+          <Route path='/customer' element={<Customer/>} />
 
         </Routes>
       </Router>
