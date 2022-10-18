@@ -64,6 +64,31 @@ app.patch('/api/service/:sID', async (req, res) => {
   }
 })
 
+//GET /api/counter
+app.get('/api/counters', async (res) => {
+  try {
+    // Get Type from ID
+    const resultSetT = await sDao.getCounters();
+    if (resultSetT.error) return res.status(500).json(resultSetT);
+	else res.status(200).json(resultSetT);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+//GET /api/counter/:id
+app.get('/api/counter/:id', async (res) => {
+  try {
+    const resultSetT = await sDao.getCounterById(req.params.sID);
+    if (resultSetT.error) return res.status(500).json(resultSetT);
+	else res.status(200).json(resultSetT);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
