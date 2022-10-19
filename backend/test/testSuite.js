@@ -17,10 +17,9 @@ describe('service.api.addService', () =>{
         const postRes = await agent.post('/api/service').send(newService);
         postRes.should.have.status(201);
         lastId = postRes.body;
-        const getRes = await agent.get('/api/service/' + lastId);
+        const getRes = await agent.get('/api/service/' + lastId.id);
         getRes.should.have.status(200);
-        getRes.body.should.have.lengthOf.above(0);
-        const type = getRes.body;
+        const type = getRes.body.type;
         type.should.be.equal(newService.type);
     });
 })

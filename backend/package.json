@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "mocha": "mocha"
+    "mocha": "mocha test --runInBand--timeout 10000 --exit"
   },
   "author": "POLITO-SE2-G6",
   "license": "ISC",
