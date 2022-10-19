@@ -1,6 +1,5 @@
-function Ticket(id,service,eta,served){
-    this.id = id;
-    this.servive = service;
+function Ticket(service,eta,served){
+    this.service = service;
     this.eta = eta;
     this.served = served;
 }
