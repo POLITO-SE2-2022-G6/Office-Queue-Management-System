@@ -1,18 +1,18 @@
 'use strict';
-
-const app = require('express')();
+const express = require('express');
+const app = new express();
 const sDao = require('./sDao'); // module for accessing the DB
+app.use(express.json());
 
 //POST /api/service
 app.post('/api/service', async (req, res) => {
   try {
-    if (!req.body) 
-      return res.status(500).json({error: "illegal Body"});
+    if (!req.body) return res.status(500).json({error: "Illegal Body"});
 
     const serv = req.body;
-    let id = sDao.addService(serv.type, serv.time); 
-    //add some control here
-    
+    let addRes = await sDao.addService(serv.type, serv.time); 
+    if (addRes.error) return res.status(500).json({error: "Error adding service"});
+    return res.status(201).json(addRes);
   } catch (err) {
     console.log(err);
     res.status(500).end();
@@ -25,7 +25,7 @@ app.get('/api/service', async (res) => {
     // Get Type from ID
     const resultSetT = await sDao.getServices();
     if (resultSetT.error) return res.status(500).json(resultSetT);
-	else res.status(200).json(resultSetT);
+	  else res.status(200).json(resultSetT);
   } catch (err) {
     console.log(err);
     res.status(500).end();
@@ -34,12 +34,12 @@ app.get('/api/service', async (res) => {
 
 
 //GET /api/service/:sID
-app.get('/api/service/:sID', async (res) => {
+app.get('/api/service/:sID', async (req, res) => {
   try {
     // Get Type from ID
     const resultSetT = await sDao.getType(req.params.sID);
     if (resultSetT.error) return res.status(500).json(resultSetT);
-	else res.status(200).json(resultSetT);
+	  else res.status(200).json(resultSetT);
   } catch (err) {
     console.log(err);
     res.status(500).end();
@@ -51,13 +51,13 @@ app.patch('/api/service/:sID', async (req, res) => {
   try {
     // Check integrità body    
     if (!req.body) return res.status(500).json({error: "Illegal Body"});
-    const nAvgTime = req.body.pop();
-    if (!nAvgTime.isNumeric()) return res.status(422).json({error: "Illegal Average Time"});
+    const nAvgTime = parseInt(req.body.time);
+    if (!nAvgTime) return res.status(422).json({error: "Illegal Average Time"});
 
     // Set the New Time to DB
     const resultSetT = await sDao.setTime(req.params.sType, nAvgTime);
     if (resultSetT.error) return res.status(500).json(resultSetT);
-	else res.status(200).json(resultSetT);
+	  else res.status(200).json(resultSetT);
   } catch (err) {
     console.log(err);
     res.status(500).end();
