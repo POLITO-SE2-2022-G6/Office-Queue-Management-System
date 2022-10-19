@@ -89,6 +89,39 @@ app.get('/api/counter/:id', async (res) => {
   }
 })
 
+//POST /api/counter
+//could be non ok
+app.post('/api/counter', async (req, res) => {
+  try {
+    let res = sDao.addCounter();
+    if(res != done){
+      res.status(500).end();
+    } 
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+//PATCH /api/counter/:id
+app.patch('/api/counter/:id', async (req, res) => {
+  try {
+    // Check integrità body. //body = list of services assoiciated to a counter    
+    if (!req.body) return res.status(500).json({error: "Illegal Body"});
+    const services = req.body.pop();
+    for (const service of services) {
+      const result = await sDao.addCounterServices(req.params.id, service);
+      if (result.error) {
+        return res.status(500).json(res)
+      }
+    }
+    res.status(200).end();
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });

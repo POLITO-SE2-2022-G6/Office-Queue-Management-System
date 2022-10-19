@@ -3,7 +3,7 @@ const db = require('./db.js');
 
 exports.addService =(type, time) => {
     return new Promise((resolve, reject) => { //check if id is autoincremented
-        const sql = 'INSERT INTO service (type, time) VALUES ()';
+        const sql = 'INSERT INTO service (type, time) VALUES (?, ?)';
         db.run(sql, [time, type], (err) => {
             if (err) {
                 reject(err);
@@ -88,7 +88,36 @@ exports.getCounterById = (id) => {
                 return;
             }
         });
-        const counter = row.map((c) => ({ id: c.id, type: c.type}));
-        resolve(counter);
+        
+        resolve(row);
     })
+}
+
+exports.addCounter = () => {
+    return new Promise((resolve, reject) => { //check if id is autoincremented
+        const sql = 'INSERT INTO counter';
+        db.run(sql, [], (err) => {
+            if (err) {
+                reject(err);
+                console.log(err);
+                return;
+            }
+            resolve('done');
+        });
+    })
+}
+
+exports.addCounterServices = (id, service) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE ServiceCounter SET service = ? WHERE id = ?';
+        db.run(sql, [service, id], (err) => {
+            if (err) {
+                reject(err);
+                console.log(err);
+                return;
+            }
+            resolve('done');
+        });
+    })
+
 }
