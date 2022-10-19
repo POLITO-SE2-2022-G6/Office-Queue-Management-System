@@ -2,7 +2,7 @@ const sDao = require('../sDao'); // module for accessing the DB
 
 const newService = {
     "type":"post office",
-    "time":"0"
+    "time":0
 }
 
 const newTime = {
@@ -18,8 +18,8 @@ describe('service.addService', () => {
     test('check returned result', async () => {
         const results = await sDao.getServices();
         expect(results.length).toBeGreaterThan(0);
-        const result = results.find(x => x.id === lastId);
-        expect(result.id).toEqual(lastId);
+        const result = results.find(x => x.id === lastId.id);
+        expect(result.id).toEqual(lastId.id);
         expect(result.type).toEqual(newService.type);
         expect(result.time).toEqual(newService.time);
     });
@@ -36,8 +36,8 @@ describe('service.setTime', () => {
         expect (r0).toEqual('done');
         const results = await sDao.getServices();
         expect(results.length).toBeGreaterThan(0);
-        const result = results.find(x => x.id == lastId);
-        expect(result.id).toEqual(lastId);
+        const result = results.find(x => x.id == lastId.id);
+        expect(result.id).toEqual(lastId.id);
         expect(result.type).toEqual(newService.type);
         expect(result.time).toEqual(newService.time);
     });
