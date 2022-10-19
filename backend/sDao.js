@@ -46,14 +46,14 @@ exports.getType = (id) => {
 
 exports.addTicket =(service,eta) => {
     return new Promise((resolve, reject) => { //check if id is autoincremented
-      const sql = 'INSERT INTO ticket (service, eta) VALUES (?,?)';
-      db.run(sql, [service, eta], (err) => {
+      const sql = 'INSERT INTO ticket (service, eta) VALUES (?,?) RETURNING id';
+      db.run(sql, [service, eta], (err,id) => {
           if (err) {
               reject(err);
               console.log(err);
               return;
           }
-          resolve('done');
+          resolve(id);
       });
   })
   
