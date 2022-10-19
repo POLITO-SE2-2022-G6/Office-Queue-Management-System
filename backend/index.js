@@ -3,6 +3,36 @@
 const app = require('express')();
 const sDao = require('./sDao'); // module for accessing the DB
 
+//POST /api/service
+app.post('/api/service', async (req, res) => {
+  try {
+    if (!req.body) 
+      return res.status(500).json({error: "illegal Body"});
+
+    const serv = req.body;
+    let id = sDao.addService(serv.type, serv.time); 
+    //add some control here
+    
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+//GET /api/service
+app.get('/api/service', async (res) => {
+  try {
+    // Get Type from ID
+    const resultSetT = await sDao.getServices();
+    if (resultSetT.error) return res.status(500).json(resultSetT);
+	else res.status(200).json(resultSetT);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+
 //GET /api/service/:sID
 app.get('/api/service/:sID', async (res) => {
   try {
