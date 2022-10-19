@@ -8,15 +8,17 @@ function Customer() {
 
   const [message, setMessage] = useState('');
 
-  // to complete:
   const addTicket = (serviceId) => {
     API.addTicket(serviceId)
-      .catch(e => setMessage(e)); 
-      
+      .catch(e => setMessage(e));     
   }
 
   return ( 
+    <div className="grid grid-flow-row">
+      <h1 className="text-2xl">Get a new ticket</h1> <br/>
+     
     <TicketForm  addTicket ={addTicket}/> 
+    </div>
   );
 }
 
@@ -24,15 +26,15 @@ function TicketForm (props) {
 
   const [service, setService] = useState(props.ticket ? props.ticket.service : '');
   const [eta, setEta] = useState(props.ticket ? props.ticket.eta : 0);
-  //const [served, setServed] = useState(props.ticket ? props.ticket.served : 0);
+  
  
   const handleSubmit = (event) => {
     event.preventDefault();
 
-   //const ticket = new Ticket(service,eta,0);
+   const ticket = new Ticket(service,eta,0);
 
    if(props.ticket === undefined){
-      props.addTicket(service);       
+      props.addTicket(ticket);       
     }
 
   }
@@ -40,8 +42,8 @@ function TicketForm (props) {
 
   return (
      
-    <div class="grid grid-flow-row">
-    <h1 class="text-2xl">Get a new ticket</h1> <br/>
+    <div className="grid grid-flow-row">
+    
      <form onSubmit={handleSubmit}>
        <div>
          <label for="service">Service type:</label> &nbsp;
