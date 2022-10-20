@@ -20,7 +20,7 @@ app.post('/api/service', async (req, res) => {
 })
 
 //GET /api/service
-app.get('/api/service', async (res, req) => {
+app.get('/api/service', async (req, res) => {
   try {
     // Get Type from ID
     const resultSetT = await sDao.getServices();
@@ -83,7 +83,7 @@ app.post('/api/ticket', async (req, res) => {
 })
 
 //GET /api/ticket/:tID
-app.get('/api/ticket/:tID', async (res, req) => {
+app.get('/api/ticket/:tID', async (req, res) => {
   try {
     // Get Ticket from ID
     const ticket = await sDao.getTicket(req.params.tID);
@@ -97,7 +97,7 @@ app.get('/api/ticket/:tID', async (res, req) => {
 
 
 //GET /api/ticket
-app.get("/api/ticket", async (res, req) => {
+app.get("/api/ticket", async (req, res) => {
   try {
     const tickets = await sDao.getAllTickets();
     res.status(200).json(tickets);
@@ -123,7 +123,7 @@ app.patch('/api/ticket/:tID', async (req, res) => {
 })
 
 //GET /api/counter
-app.get('/api/counters', async (res, req) => {
+app.get('/api/counters', async (req, res) => {
   try {
     // Get Type from ID
     const resultSetT = await sDao.getCounters();
@@ -136,7 +136,7 @@ app.get('/api/counters', async (res, req) => {
 })
 
 //GET /api/counter/:id
-app.get('/api/counter/:id', async (res, req) => {
+app.get('/api/counter/:id', async (req, res) => {
   try {
     const resultSetT = await sDao.getCounterById(req.params.sID);
     if (resultSetT.error) return res.status(500).json(resultSetT);
