@@ -1,9 +1,8 @@
 import './Customer.css';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Ticket from '../../Ticket';
 import API from '../../API';
 import {Link} from 'react-router-dom'
-
 function Customer() {
 
   const [message, setMessage] = useState('');
@@ -13,14 +12,53 @@ function Customer() {
       .catch(e => setMessage(e));     
   }
 
+  const [services, setServices] = useState([]);
+
+  const getAllServices = async() => {
+    const services = await API.getServices();
+    setServices(services);
+  };
+
+  useEffect(() => {getAllServices() ;}, []);
+
   return ( 
     <div className="grid grid-flow-row">
       <h1 className="text-2xl">Get a new ticket</h1> <br/>
-     
+      <h3 className='text-xl'>Available services:</h3>
+      <table className="min-w-full">
+      <thead> 
+        <tr>
+          <th>Number</th>
+          <th>Type</th>
+        </tr>
+      </thead> 
+      <tbody>
+      {
+         services.map((s) => 
+         <ServiceTable services={s} />
+         )       
+      }      
+      </tbody>
+      </table>
+      <br/>
     <TicketForm  addTicket ={addTicket}/> 
     </div>
   );
 }
+
+function ServiceTable(props){
+
+  return (
+    <> 
+    <tr>
+    <td>{props.services.id}</td>
+   <td>{props.services.type}</td>
+     </tr>
+    </> 
+  )
+}
+
+
 
 function TicketForm (props) {
 
@@ -39,14 +77,13 @@ function TicketForm (props) {
 
   }
 
-
   return (
      
     <div className="grid grid-flow-row">
     
      <form onSubmit={handleSubmit}>
        <div>
-         <label for="service">Service type:</label> &nbsp;
+         <label for="service">Enter service number:</label> &nbsp;
          <input type="number" min="1" id="service" 
          className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500" 
          placeholder="" required 

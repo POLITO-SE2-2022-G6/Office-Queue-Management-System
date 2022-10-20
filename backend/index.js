@@ -29,15 +29,14 @@ app.post('/api/service', async (req, res) => {
 })
 
 //GET /api/service
-app.get('/api/service', async (res) => {
+app.get('/api/service', async (req,res) => {
   try {
     // Get Type from ID
     const resultSetT = await sDao.getServices();
-    if (resultSetT.error) return res.status(500).json(resultSetT);
-	  else res.status(200).json(resultSetT);
+    res.status(200).json(resultSetT);
   } catch (err) {
     console.log(err);
-    res.status(500).end();
+    res.status(500).json({error: "Error getting services"});
   }
 })
 
@@ -47,8 +46,7 @@ app.get('/api/service/:sID', async (req, res) => {
   try {
     // Get Type from ID
     const resultSetT = await sDao.getType(req.params.sID);
-    if (resultSetT.error) return res.status(500).json(resultSetT);
-	  else res.status(200).json(resultSetT);
+	  return res.status(200).json(resultSetT);
   } catch (err) {
     console.log(err);
     res.status(500).end();

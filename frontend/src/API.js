@@ -1,4 +1,4 @@
-
+import Service from "./Service";
 const SERVER_URL = 'http://localhost:3001';
 
 
@@ -20,4 +20,15 @@ const addTicket = async (serviceId) => {
     }
 }
 
-export default {addTicket} ;
+const getServices = async () => {
+    const response = await fetch(SERVER_URL + '/api/service', {
+     // credentials: 'include',
+    });
+    const serviceJson = await response.json();
+    if(response.ok) {
+      return serviceJson.map(s => new Service(s.id,s.type));
+    }
+    else
+      throw serviceJson;
+  };
+export default {addTicket,getServices} ;
