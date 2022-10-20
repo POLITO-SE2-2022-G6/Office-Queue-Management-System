@@ -2,23 +2,22 @@ import {
     useNavigate
 } from 'react-router-dom'
 import { useEffect, useState } from 'react';
+import API from '../../API';
 import Navbar from '../../components/Navbar';
 
 function SetServiceTime(props) {
 
-    let list = [{name: "tipo1", time: 5}, {name: "tipo2", time: 10}, {name: "tipo3", time: 15}]
-
-    const [serviceList, setServiceList] = useState(list);
+    const [serviceList, setServiceList] = useState(null);
     const [newTime, setNewTime] = useState(0);
     const [service, setService] = useState(null);
     const [flag1, setFlag1] = useState(true);
     const navigate = useNavigate();
 
-    /*useEffect(() => {
+    useEffect(() => {
         API.getServices() //api che prende i servizi
             .then((serviceList) => { setServiceList(serviceList); setFlag1(false); })
             .catch(err => handleError(err))
-    }, [flag1]);*/
+    }, [flag1]);
 
     function handleError(err) {
         console.log(err);
