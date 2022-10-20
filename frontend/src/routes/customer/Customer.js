@@ -72,7 +72,7 @@ function TicketForm (props) {
    const ticket = new Ticket(service,eta,0);
 
    if(props.ticket === undefined){
-      props.addTicket(ticket);       
+      props.addTicket(+ticket.service);       
     }
 
   }

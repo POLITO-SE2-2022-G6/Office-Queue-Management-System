@@ -7,7 +7,7 @@ const addTicket = async (serviceId) => {
         const response = await fetch(SERVER_URL + '/api/ticket', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(serviceId),
+            body: JSON.stringify({service: serviceId}),
         });
 
         if (!response.ok) {
