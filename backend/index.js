@@ -122,6 +122,64 @@ app.patch('/api/ticket/:tID', async (req, res) => {
   }
 })
 
+//GET /api/counter
+app.get('/api/counters', async (res) => {
+  try {
+    // Get Type from ID
+    const resultSetT = await sDao.getCounters();
+    if (resultSetT.error) return res.status(500).json(resultSetT);
+	else res.status(200).json(resultSetT);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+//GET /api/counter/:id
+app.get('/api/counter/:id', async (res) => {
+  try {
+    const resultSetT = await sDao.getCounterById(req.params.sID);
+    if (resultSetT.error) return res.status(500).json(resultSetT);
+	else res.status(200).json(resultSetT);
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+//POST /api/counter
+//could be non ok
+app.post('/api/counter', async (req, res) => {
+  try {
+    let res = sDao.addCounter();
+    if(res != done){
+      res.status(500).end();
+    } 
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
+//PATCH /api/counter/:id
+app.patch('/api/counter/:id', async (req, res) => {
+  try {
+    // Check integrità body. //body = list of services assoiciated to a counter    
+    if (!req.body) return res.status(500).json({error: "Illegal Body"});
+    const services = req.body.pop();
+    for (const service of services) {
+      const result = await sDao.addCounterServices(req.params.id, service);
+      if (result.error) {
+        return res.status(500).json(res)
+      }
+    }
+    res.status(200).end();
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+})
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
