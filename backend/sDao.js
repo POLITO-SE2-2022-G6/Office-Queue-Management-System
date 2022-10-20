@@ -126,16 +126,25 @@ exports.getServices = () => {
 
 exports.getCounters = () => {
     return new Promise((resolve, reject) => {
-        const sql = 'SELECT * FROM counter C, service S WHERE C.id = S.id ';
+        const sql = 'SELECT * FROM counter C, service S, ServiceCounter SC WHERE C.id = SC.counter AND S.id = SC.service';
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
                 console.log(err);
                 return;
             }
-        });
-        const counters = rows.map((c) => ({ id: c.id, type: c.type, time: c.time}));
-        resolve(counters);
+            const data = []
+            rows.forEach((row) => {
+                const service = { id: row.service, type: row.type, time: row.time }
+                const id = data.findIndex((d) => d.id === row.counter);
+                if (id != -1) {
+                    data[id].services.push(service);
+                } else {
+                    data.push({ id: row.counter, services: [service] });
+                }
+            })
+            resolve(data);
+        })
     })
 }
 
