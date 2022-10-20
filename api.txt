@@ -1,11 +1,13 @@
 /api
   /service
     POST  /       - create a service
+    GET   /       - get all services
     GET   /:id    - get a service
     PATCH /:id    - set service time
 
   /counter
     POST  /       - create a counter
+    GET   /       - get all counters
     GET   /:id    - get a counter
     PATCH /:id    - set counter service
      {
@@ -17,5 +19,6 @@
       {
         serviceId: number
       }
+    GET   /       - get all tickets
     GET   /:id    - get a ticket
     PATCH /:id    - set ticket as served
