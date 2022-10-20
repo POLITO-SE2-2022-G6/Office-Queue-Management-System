@@ -5,7 +5,6 @@ function CounterService(props) {
 
   const [counters, setCounters] = useState([]);
   const [services, setServices] = useState([]);
-  const [relations, setRelations] = useState([]);
 
   // Load data from API
   useEffect(() => {
@@ -72,13 +71,12 @@ function CounterService(props) {
   }
 
   return (
-    <>
+    <div className="flex flex-row justify-center flex-wrap">
       {counters.map(counter => (
-        <div key={counter.id} className="flex">
-          <CounterList key={counter.id} counter={counter} services={services} addService={addService} removeService={removeService} />
-        </div>
+        <CounterList key={counter.id} counter={counter} services={services} addService={addService} removeService={removeService} />
+
       ))}
-    </>
+    </div>
   )
 }
 
@@ -90,22 +88,28 @@ function CounterList(props) {
   const missingServices = services.filter(service => !list.find(s => s.id === service.id));
 
   return (
-    <div className="p-4 ">
-      <h1>Counter: {counter.id}</h1>
+    <div className="p-4 border rounded mx-3">
+      <h1 className="text-2xl">Counter: {counter.id}</h1>
 
-      <select name="services" id="" ref={ref}>
+      <select name="services" id="" ref={ref} className="rounded border  mx-2 p-1">
+        {missingServices.length == 0 && <option disabled selected>No more services</option>}
         {missingServices.map(service => (
           <option value={service.id}>{service.type}</option>
         ))}
       </select>
-      <button onClick={() => addService(counter.id, ref.current.value)}>Add</button>
-      <ul>
+      <button
+        onClick={() => addService(counter.id, ref.current.value)}
+        className="py-1 px-3 rounded border bg-green-200"
+        disabled={missingServices.length == 0}>
+        Add
+      </button>
+      <ul className="divide-y">
         {list.map(s => (
-          <li key={s.id}>
+          <li key={s.id} className="flex justify-between w-48">
             <p>
               {s.type}
             </p>
-            <p onClick={() => removeService(counter.id, s.id)}>
+            <p className="text-xl" onClick={() => removeService(counter.id, s.id)}>
               &times;
             </p>
           </li>
