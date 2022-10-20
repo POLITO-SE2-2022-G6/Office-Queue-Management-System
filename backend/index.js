@@ -82,11 +82,10 @@ app.post('/api/ticket', async (req, res) => {
     const serv_id = req.body.service;
     const eta=0;//fucntion that computes eta and returns the result
     let id = await sDao.addTicket(serv_id,eta); //served is 0 by default 
-    if(id.error) return res.status(500).json({error: "Error adding ticket"});
     return res.status(201).json(id);
   } catch (err) {
     console.log(err);
-    res.status(500).end();
+    res.status(500).json({error: "Error adding ticket"});
   }
   
 })
