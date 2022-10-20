@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
 
+import {
+  Route,
+  Routes,
+  BrowserRouter as Router,
+  Navigate,
+} from 'react-router-dom'
+import { useState } from 'react';
+
+import Landing from './routes/landing/Landing'
+import Manager from './routes/manager/Manager';
+import SetServiceTime from './routes/manager/SetServiceTime';
+
 function App() {
-  return (
+
+  const [user, setUser] = useState("User");
+
+  return ( //path servicetime to edit and use an outlet
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Landing user={user} setUser={setUser}/>} />
+          <Route path='/manager' element={<Manager user={user} setUser={setUser}/>} />
+          <Route path='/servicetime' element={<SetServiceTime user={user} setUser={setUser}/>} />
+
+        </Routes>
+      </Router>
     </div>
   );
 }
