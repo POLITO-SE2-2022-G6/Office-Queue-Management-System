@@ -9,33 +9,34 @@ function CounterService(props) {
   // Load data from API
   useEffect(() => {
     const fetchData = async () => {
-      // let result = await axios(
-      //   'http://localhost:3000/api/counter',
-      // );
-      let result = {
-        data: [
-          {
-            id: 1,
-            services: [{ id: 1, type: 'service1' }, { id: 2, type: 'service2' }]
-          },
-          {
-            id: 2,
-            services: [{ id: 1, type: 'service1' }, { id: 3, type: 'service3' }]
-          },
-        ]
-      }
+      let result = await axios(
+        'http://localhost:3001/api/counter',
+      );
+      
+      // let result = {
+      //   data: [
+      //     {
+      //       id: 1,
+      //       services: [{ id: 1, type: 'service1' }, { id: 2, type: 'service2' }]
+      //     },
+      //     {
+      //       id: 2,
+      //       services: [{ id: 1, type: 'service1' }, { id: 3, type: 'service3' }]
+      //     },
+      //   ]
+      // }
       setCounters(result.data);
 
-      // result = await axios(
-      //   'http://localhost:3000/api/service',
-      // );
-      result = {
-        data: [
-          { id: 1, type: 'service1' },
-          { id: 2, type: 'service2' },
-          { id: 3, type: 'service3' },
-        ]
-      }
+      result = await axios(
+        'http://localhost:3001/api/service',
+      );
+      // result = {
+      //   data: [
+      //     { id: 1, type: 'service1' },
+      //     { id: 2, type: 'service2' },
+      //     { id: 3, type: 'service3' },
+      //   ]
+      // }
       setServices(result.data);
 
     };
@@ -94,27 +95,26 @@ function CounterList(props) {
       <select name="services" id="" ref={ref} className="rounded border  mx-2 p-1">
         {missingServices.length == 0 && <option disabled selected>No more services</option>}
         {missingServices.map(service => (
-          <option value={service.id}>{service.type}</option>
+          <option key={service.id} value={service.id}>{service.type}</option>
         ))}
       </select>
+
       <button
         onClick={() => addService(counter.id, ref.current.value)}
         className="py-1 px-3 rounded border bg-green-200"
         disabled={missingServices.length == 0}>
         Add
       </button>
+
       <ul className="divide-y">
         {list.map(s => (
           <li key={s.id} className="flex justify-between w-48">
-            <p>
-              {s.type}
-            </p>
-            <p className="text-xl" onClick={() => removeService(counter.id, s.id)}>
-              &times;
-            </p>
+            <p>{s.type}</p>
+            <p className="text-xl" onClick={() => removeService(counter.id, s.id)}>&times;</p>
           </li>
         ))}
       </ul>
+
     </div>
   )
 }
