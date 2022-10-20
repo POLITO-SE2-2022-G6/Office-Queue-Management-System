@@ -35,7 +35,7 @@ function Customer() {
       <tbody>
       {
          services.map((s) => 
-         <ServiceTable services={s} />
+         <ServiceTable services={s} key={s.id}/>
          )       
       }      
       </tbody>

@@ -22,7 +22,6 @@ const addTicket = async (serviceId) => {
 
 const getServices = async () => {
     const response = await fetch(SERVER_URL + '/api/service', {
-     // credentials: 'include',
     });
     const serviceJson = await response.json();
     if(response.ok) {
