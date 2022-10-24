@@ -1,29 +1,27 @@
-TEMPLATE FOR RETROSPECTIVE (Team ##)
+TEMPLATE FOR RETROSPECTIVE (Team #6)
 =====================================
-
-The retrospective should include _at least_ the following
-sections:
-
-- [process measures](#process-measures)
-- [quality measures](#quality-measures)
-- [general assessment](#assessment)
 
 ## PROCESS MEASURES 
 
 ### Macro statistics
 
 - Number of stories committed vs. done 
+
+| Stories committed | Stories done |
+|-|-|
+| 5 | 0 |
+
 - Total points committed vs. done 
+
+| Points committed | Points done |
+|-|-|
+| 10 | 5 |
+
 - Nr of hours planned vs. spent (as a team)
 
-**Remember**a story is done ONLY if it fits the Definition of Done:
- 
-- Unit Tests passing
-- Code review completed
-- Code present on VCS
-- End-to-End tests performed
-
-> Please refine your DoD if required (you cannot remove items!) 
+| # Hours planned | # Hours done |
+|-|-|
+| 36 | 30 |
 
 ### Detailed statistics
 
@@ -43,6 +41,7 @@ sections:
 - Total task estimation error ratio: sum of total (hours estimation / sum of total hours spent) - 1
   43/31 = 38%
   
+  
 ## QUALITY MEASURES 
 
 - Unit Testing:
@@ -56,7 +55,6 @@ sections:
 - Code review - 
   - Total hours estimated - 
   - Total hours spent - 
-  
 
 
 ## ASSESSMENT
@@ -72,8 +70,8 @@ sections:
   - Meeting in person is more productive
   - Product-centered prioritizations of the Stories
   - More communication is needed to coordinate 
+  - Knowing and understanding the capabilities of the team is essential for a good product
   
-
 - Improvement goals for the next sprint and how to achieve them (technical tasks, team coordination, etc.)
   - Clearer definition of coordination, meeting times, project structure, task details, and workflow
     - Split bigger tasks into subtasks in order to have more details about the work
@@ -85,3 +83,5 @@ sections:
 
 - One thing you are proud of as a Team!!
   - We are proud of our team members because we always try to find a solution together 👌
+  - We are honest and hardworking people who can learn for ours' mistakes
+  
